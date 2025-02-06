@@ -9,7 +9,8 @@ from products.models import Product, User
 from products.producer import publish
 
 
-class ProductViewSet(viewsets.ViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
+    """CRUD product view set, with publish to flask app"""
     def list(self, request):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
@@ -43,6 +44,7 @@ class ProductViewSet(viewsets.ViewSet):
 
 
 class UserApiView(APIView):
+    """Get random user id from db for liking products"""
     def get(self, _):
         users = User.objects.all()
         user = random.choice(users)
